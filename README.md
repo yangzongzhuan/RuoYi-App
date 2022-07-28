@@ -25,7 +25,7 @@ RuoYi App 移动解决方案，采用uniapp框架，一份代码多终端适配�
 - 官网网站：[http://ruoyi.vip](http://ruoyi.vip)
 - 文档地址：[http://doc.ruoyi.vip](http://doc.ruoyi.vip)
 - H5页体验：[http://h5.ruoyi.vip](http://h5.ruoyi.vip)
-- QQ交流群： ①12345678
+- QQ交流群： ①133713780
 - 小程序体验
 
 <img src="https://oscimg.oschina.net/oscnet/up-26c76dc90b92acdbd9ac8cd5252f07c8ad9.jpg" alt="小程序演示"/>
