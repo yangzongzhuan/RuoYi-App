@@ -1,5 +1,10 @@
 {
   "pages": [{
+    "path": "pages/login",
+    "style": {
+      "navigationBarTitleText": "登录"
+    }
+  }, {
     "path": "pages/index",
     "style": {
       "navigationBarTitleText": "若依移动端框架",
@@ -51,12 +56,6 @@
       "navigationBarTitleText": "关于我们"
     }
   }, {
-    "path": "pages/login",
-    "style": {
-      "navigationBarTitleText": "登录"
-    }
-
-  }, {
     "path": "pages/common/webview/index",
     "style": {
       "navigationBarTitleText": "浏览网页"
@@ -77,14 +76,12 @@
         "iconPath": "static/images/tabbar/home.png",
         "selectedIconPath": "static/images/tabbar/home_.png",
         "text": "首页"
-      },
-      {
+      }, {
         "pagePath": "pages/work/index",
         "iconPath": "static/images/tabbar/work.png",
         "selectedIconPath": "static/images/tabbar/work_.png",
         "text": "工作台"
-      },
-      {
+      }, {
         "pagePath": "pages/mine/index",
         "iconPath": "static/images/tabbar/mine.png",
         "selectedIconPath": "static/images/tabbar/mine_.png",
