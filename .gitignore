@@ -8,6 +8,9 @@
 # Development Tools
 
 /.idea/*
-/.vscode/
+/.vscode/*
 /.hbuilderx/*
+
+package-lock.json
+yarn.lock
 
