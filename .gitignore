@@ -1,9 +1,13 @@
 ######################################################################
 # Build Tools
 
-/unpackage/
+/unpackage/*
+/node_modules/*
 
 ######################################################################
-# HBuilder
+# Development Tools
 
-/.hbuilderx
+/.idea/*
+/.vscode/
+/.hbuilderx/*
+
