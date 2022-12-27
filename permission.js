@@ -20,7 +20,7 @@ list.forEach(item => {
   uni.addInterceptor(item, {
     invoke(to) {
       if (getToken()) {
-        if (to.path === loginPage) {
+        if (to.url === loginPage) {
           uni.reLaunch({ url: "/" })
         }
         return true
