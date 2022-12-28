@@ -14,10 +14,12 @@
         <view class="iconfont icon-password icon"></view>
         <input v-model="loginForm.password" type="password" class="input" placeholder="请输入密码" maxlength="20" />
       </view>
-      <view class="input-item flex align-center" v-if="captchaEnabled">
+      <view class="input-item flex align-center" style="width: 60%;margin: 0px;" v-if="captchaEnabled">
         <view class="iconfont icon-code icon"></view>
         <input v-model="loginForm.code" type="number" class="input" placeholder="请输入验证码" maxlength="4" />
-        <image :src="codeUrl" @click="getCode" class="login-code-img"></image>
+        <view class="login-code"> 
+          <image :src="codeUrl" @click="getCode" class="login-code-img"></image>
+        </view  >
       </view>
       <view class="action-btn">
         <button @click="handleLogin" class="login-btn cu-btn block bg-blue lg round">登录</button>
@@ -168,14 +170,19 @@
         color: #333;
         margin-top: 20px;
       }
-    }
-
-    .easyinput {
-      width: 100%;
+      
+      .login-code {
+        height: 38px;
+        float: right;
+      
+        .login-code-img {
+          height: 38px;
+          position: absolute;
+          margin-left: 10px;
+          width: 200rpx;
+        }
+      }
     }
   }
 
-  .login-code-img {
-    height: 45px;
-  }
 </style>
