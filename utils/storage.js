@@ -6,9 +6,6 @@ let storageKey = 'storage_data'
 // 存储节点变量名
 let storageNodeKeys = [constant.avatar, constant.name, constant.roles, constant.permissions]
 
-// 存储的数据
-let storageData = uni.getStorageSync(storageKey) || {}
-
 const storage = {
   set: function(key, value) {
     if (storageNodeKeys.indexOf(key) != -1) {
@@ -19,9 +16,11 @@ const storage = {
     }
   },
   get: function(key) {
+    let storageData = uni.getStorageSync(storageKey) || {}
     return storageData[key] || ""
   },
   remove: function(key) {
+    let storageData = uni.getStorageSync(storageKey) || {}
     delete storageData[key]
     uni.setStorageSync(storageKey, storageData)
   },
