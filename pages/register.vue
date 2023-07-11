@@ -3,55 +3,51 @@
     <view class="logo-content align-center justify-center flex">
       <image style="width: 100rpx;height: 100rpx;" :src="globalConfig.appInfo.logo" mode="widthFix">
       </image>
-      <text class="title">若依移动端登录</text>
+      <text class="title">若依移动端注册</text>
     </view>
     <view class="login-form-content">
       <view class="input-item flex align-center">
         <view class="iconfont icon-user icon"></view>
-        <input v-model="loginForm.username" class="input" type="text" placeholder="请输入账号" maxlength="30" />
+        <input v-model="registerForm.username" class="input" type="text" placeholder="请输入账号" maxlength="30" />
       </view>
       <view class="input-item flex align-center">
         <view class="iconfont icon-password icon"></view>
-        <input v-model="loginForm.password" type="password" class="input" placeholder="请输入密码" maxlength="20" />
+        <input v-model="registerForm.password" type="password" class="input" placeholder="请输入密码" maxlength="20" />
+      </view>
+      <view class="input-item flex align-center">
+        <view class="iconfont icon-password icon"></view>
+        <input v-model="registerForm.confirmPassword" type="password" class="input" placeholder="请输入重复密码" maxlength="20" />
       </view>
       <view class="input-item flex align-center" style="width: 60%;margin: 0px;" v-if="captchaEnabled">
         <view class="iconfont icon-code icon"></view>
-        <input v-model="loginForm.code" type="number" class="input" placeholder="请输入验证码" maxlength="4" />
+        <input v-model="registerForm.code" type="number" class="input" placeholder="请输入验证码" maxlength="4" />
         <view class="login-code"> 
           <image :src="codeUrl" @click="getCode" class="login-code-img"></image>
         </view>
       </view>
       <view class="action-btn">
-        <button @click="handleLogin" class="login-btn cu-btn block bg-blue lg round">登录</button>
-      </view>
-      <view class="reg text-center" v-if="register">
-        <text class="text-grey1">没有账号？</text>
-        <text @click="handleUserRegister" class="text-blue">立即注册</text>
-      </view>
-      <view class="xieyi text-center">
-        <text class="text-grey1">登录即代表同意</text>
-        <text @click="handleUserAgrement" class="text-blue">《用户协议》</text>
-        <text @click="handlePrivacy" class="text-blue">《隐私协议》</text>
+        <button @click="handleRegister()" class="register-btn cu-btn block bg-blue lg round">注册</button>
       </view>
     </view>
-     
+    <view class="xieyi text-center">
+      <text @click="handleUserLogin" class="text-blue">使用已有账号登录</text>
+    </view>
   </view>
 </template>
 
 <script>
-  import { getCodeImg } from '@/api/login'
+  import { getCodeImg, register } from '@/api/login'
 
   export default {
     data() {
       return {
         codeUrl: "",
         captchaEnabled: true,
-        // 用户注册开关
-        register: false,
         globalConfig: getApp().globalData.config,
-        loginForm: {
-          username: "admin",
-          password: "admin123",
+        registerForm: {
+          username: "",
+          password: "",
+          confirmPassword: "",
           code: "",
           uuid: ''
         }
@@ -61,19 +57,9 @@
       this.getCode()
     },
     methods: {
-      // 用户注册
-      handleUserRegister() {
-        this.$tab.redirectTo(`/pages/register`)
-      },
-      // 隐私协议
-      handlePrivacy() {
-        let site = this.globalConfig.appInfo.agreements[0]
-        this.$tab.navigateTo(`/pages/common/webview/index?title=${site.title}&url=${site.url}`)
-      },
-      // 用户协议
-      handleUserAgrement() {
-        let site = this.globalConfig.appInfo.agreements[1]
-        this.$tab.navigateTo(`/pages/common/webview/index?title=${site.title}&url=${site.url}`)
+      // 用户登录
+      handleUserLogin() {
+        this.$tab.navigateTo(`/pages/login`)
       },
       // 获取图形验证码
       getCode() {
@@ -81,36 +67,48 @@
           this.captchaEnabled = res.captchaEnabled === undefined ? true : res.captchaEnabled
           if (this.captchaEnabled) {
             this.codeUrl = 'data:image/gif;base64,' + res.img
-            this.loginForm.uuid = res.uuid
+            this.registerForm.uuid = res.uuid
           }
         })
       },
-      // 登录方法
-      async handleLogin() {
-        if (this.loginForm.username === "") {
+      // 注册方法
+      async handleRegister() {
+        if (this.registerForm.username === "") {
           this.$modal.msgError("请输入您的账号")
-        } else if (this.loginForm.password === "") {
+        } else if (this.registerForm.password === "") {
           this.$modal.msgError("请输入您的密码")
-        } else if (this.loginForm.code === "" && this.captchaEnabled) {
+        } else if (this.registerForm.confirmPassword === "") {
+          this.$modal.msgError("请再次输入您的密码")
+        } else if (this.registerForm.password !== this.registerForm.confirmPassword) {
+          this.$modal.msgError("两次输入的密码不一致")
+        } else if (this.registerForm.code === "" && this.captchaEnabled) {
           this.$modal.msgError("请输入验证码")
         } else {
-          this.$modal.loading("登录中，请耐心等待...")
-          this.pwdLogin()
+          this.$modal.loading("注册中，请耐心等待...")
+          this.register()
         }
       },
-      // 密码登录
-      async pwdLogin() {
-        this.$store.dispatch('Login', this.loginForm).then(() => {
+      // 用户注册
+      async register() {
+        register(this.registerForm).then(res => {
           this.$modal.closeLoading()
-          this.loginSuccess()
+          uni.showModal({
+          	title: "系统提示",
+          	content: "恭喜你，您的账号 " + this.registerForm.username + " 注册成功！",
+          	success: function (res) {
+          		if (res.confirm) {
+                uni.redirectTo({ url: `/pages/login` });
+          		}
+          	}
+          })
         }).catch(() => {
           if (this.captchaEnabled) {
             this.getCode()
           }
         })
       },
-      // 登录成功后，处理函数
-      loginSuccess(result) {
+      // 注册成功后，处理函数
+      registerSuccess(result) {
         // 设置用户信息
         this.$store.dispatch('GetInfo').then(res => {
           this.$tab.reLaunch('/pages/index')
@@ -171,15 +169,11 @@
 
       }
 
-      .login-btn {
+      .register-btn {
         margin-top: 40px;
         height: 45px;
       }
-      
-      .reg {
-        margin-top: 15px;
-      }
-      
+
       .xieyi {
         color: #333;
         margin-top: 20px;
