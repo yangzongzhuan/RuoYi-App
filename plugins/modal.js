@@ -25,18 +25,18 @@ export default {
     uni.hideToast()
   },
   // 弹出提示
-  alert(content) {
+  alert(content, title) {
     uni.showModal({
-      title: '提示',
+      title: title || '系统提示',
       content: content,
       showCancel: false
     })
   },
   // 确认窗体
-  confirm(content) {
+  confirm(content, title) {
     return new Promise((resolve, reject) => {
       uni.showModal({
-        title: '系统提示',
+        title: title || '系统提示',
         content: content,
         cancelText: '取消',
         confirmText: '确定',
