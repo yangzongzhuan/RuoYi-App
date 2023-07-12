@@ -75,7 +75,7 @@
    */
   export default {
     name: 'UniDataPicker',
-    emits: ['popupopened', 'popupclosed', 'nodeclick', 'input', 'change', 'update:modelValue'],
+    emits: ['popupopened', 'popupclosed', 'nodeclick', 'input', 'change', 'update:modelValue','inputclick'],
     mixins: [dataPicker],
     components: {
       DataPickerView
@@ -131,9 +131,16 @@
         this.load();
       })
     },
+    watch: {
+			localdata: {
+				handler() {
+					this.load()
+				},
+        deep: true
+			},
+    },
     methods: {
       clear() {
-        this.modelValue = null;
         this._dispatchEvent([]);
       },
       onPropsChange() {
@@ -145,10 +152,6 @@
       load() {
         if (this.readonly) {
           this._processReadonly(this.localdata, this.dataValue);
-          return;
-        }
-
-        if (!this.hasValue) {
           return;
         }
 
@@ -184,6 +187,7 @@
       },
       handleInput() {
         if (this.readonly) {
+					this.$emit('inputclick')
           return
         }
         this.show()
