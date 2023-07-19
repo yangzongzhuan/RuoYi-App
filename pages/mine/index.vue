@@ -124,7 +124,7 @@
         this.$tab.navigateTo('/pages/mine/about/index')
       },
       handleJiaoLiuQun() {
-        this.$modal.showToast('QQ群：133713780')
+        this.$modal.showToast('QQ群：①133713780、②146013835')
       },
       handleBuilding() {
         this.$modal.showToast('模块建设中~')
