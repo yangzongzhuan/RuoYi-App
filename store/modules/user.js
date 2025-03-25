@@ -1,8 +1,10 @@
 import config from '@/config'
 import storage from '@/utils/storage'
 import constant from '@/utils/constant'
+import { isHttp, isEmpty } from "@/utils/validate"
 import { login, logout, getInfo } from '@/api/login'
 import { getToken, setToken, removeToken } from '@/utils/auth'
+import defAva from '@/static/images/profile.jpg'
 
 const baseUrl = config.baseUrl
 
@@ -60,9 +62,12 @@ const user = {
       return new Promise((resolve, reject) => {
         getInfo().then(res => {
           const user = res.user
-          const avatar = (user == null || user.avatar == "" || user.avatar == null) ? require("@/static/images/profile.jpg") : baseUrl + user.avatar
-          const username = (user == null || user.userName == "" || user.userName == null) ? "" : user.userName
-          if (res.roles && res.roles.length > 0) {
+		  let avatar = user.avatar || ""
+		  if (!isHttp(avatar)) {
+            avatar = (isEmpty(avatar)) ? defAva : baseUrl + avatar
+          }
+          const username = (isEmpty(user) || isEmpty(user.userName)) ? "" : user.userName
+		  if (res.roles && res.roles.length > 0) {
             commit('SET_ROLES', res.roles)
             commit('SET_PERMISSIONS', res.permissions)
           } else {
