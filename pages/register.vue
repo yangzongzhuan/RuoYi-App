@@ -49,7 +49,7 @@
           password: "",
           confirmPassword: "",
           code: "",
-          uuid: ''
+          uuid: ""
         }
       }
     },
@@ -106,19 +106,12 @@
             this.getCode()
           }
         })
-      },
-      // 注册成功后，处理函数
-      registerSuccess(result) {
-        // 设置用户信息
-        this.$store.dispatch('GetInfo').then(res => {
-          this.$tab.reLaunch('/pages/index')
-        })
       }
     }
   }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
   page {
     background-color: #ffffff;
   }

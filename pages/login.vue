@@ -53,7 +53,7 @@
           username: "admin",
           password: "admin123",
           code: "",
-          uuid: ''
+          uuid: ""
         }
       }
     },
@@ -88,9 +88,9 @@
       // 登录方法
       async handleLogin() {
         if (this.loginForm.username === "") {
-          this.$modal.msgError("请输入您的账号")
+          this.$modal.msgError("请输入账号")
         } else if (this.loginForm.password === "") {
-          this.$modal.msgError("请输入您的密码")
+          this.$modal.msgError("请输入密码")
         } else if (this.loginForm.code === "" && this.captchaEnabled) {
           this.$modal.msgError("请输入验证码")
         } else {
@@ -120,7 +120,7 @@
   }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
   page {
     background-color: #ffffff;
   }

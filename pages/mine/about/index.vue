@@ -38,7 +38,7 @@
     </view>
 
     <view class="copyright">
-      <view>Copyright &copy; 2022 ruoyi.vip All Rights Reserved.</view>
+      <view>Copyright &copy; 2025 ruoyi.vip All Rights Reserved.</view>
     </view>
   </view>
 </template>
@@ -54,7 +54,7 @@
   }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
   page {
     background-color: #f8f8f8;
   }

@@ -106,7 +106,7 @@
   }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
   /* #ifndef APP-NVUE */
   page {
     display: flex;
@@ -121,7 +121,6 @@
     font-size: 14px;
     line-height: inherit;
   }
-
   /* #endif */
 
   .text {

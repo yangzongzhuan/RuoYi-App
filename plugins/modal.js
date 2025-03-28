@@ -69,6 +69,10 @@ export default {
   },
   // 关闭遮罩层
   closeLoading() {
-    uni.hideLoading()
+    try {
+        uni.hideLoading()
+    } catch (e) {
+        console.log(e)
+    }
   }
 }

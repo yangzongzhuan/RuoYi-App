@@ -7,14 +7,7 @@
   </view>
 </template>
 
-<script>
-  export default {
-    onLoad: function() {
-    }
-  }
-</script>
-
-<style>
+<style scoped>
   .content {
     display: flex;
     flex-direction: column;

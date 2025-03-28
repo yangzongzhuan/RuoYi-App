@@ -77,8 +77,6 @@
 </template>
 
 <script>
-  import storage from '@/utils/storage'
-  
   export default {
     data() {
       return {
@@ -110,13 +108,6 @@
       handleToAvatar() {
         this.$tab.navigateTo('/pages/mine/avatar/index')
       },
-      handleLogout() {
-        this.$modal.confirm('确定注销并退出系统吗？').then(() => {
-          this.$store.dispatch('LogOut').then(() => {
-            this.$tab.reLaunch('/pages/index')
-          })
-        })
-      },
       handleHelp() {
         this.$tab.navigateTo('/pages/mine/help/index')
       },
@@ -133,7 +124,7 @@
   }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
   page {
     background-color: #f5f6f7;
   }
