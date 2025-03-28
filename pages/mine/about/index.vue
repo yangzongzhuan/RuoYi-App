@@ -43,15 +43,9 @@
   </view>
 </template>
 
-<script>
-  export default {
-    data() {
-      return {
-        url: getApp().globalData.config.appInfo.site_url,
-        version: getApp().globalData.config.appInfo.version
-      }
-    }
-  }
+<script setup>
+  const url = getApp().globalData.config.appInfo.site_url
+  const version = getApp().globalData.config.appInfo.version
 </script>
 
 <style lang="scss" scoped>

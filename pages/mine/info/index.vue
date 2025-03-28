@@ -11,30 +11,23 @@
   </view>
 </template>
 
-<script>
+<script setup>
   import { getUserProfile } from "@/api/system/user"
+  import { ref, reactive } from "vue"
 
-  export default {
-    data() {
-      return {
-        user: {},
-        roleGroup: "",
-        postGroup: ""
-      }
-    },
-    onLoad() {
-      this.getUser()
-    },
-    methods: {
-      getUser() {
-        getUserProfile().then(response => {
-          this.user = response.data
-          this.roleGroup = response.roleGroup
-          this.postGroup = response.postGroup
-        })
-      }
-    }
+  const user = ref({})
+  const roleGroup = ref("")
+  const postGroup = ref("")
+
+  function getUser() {
+    getUserProfile().then(response => {
+      user.value = response.data
+      roleGroup.value = response.roleGroup
+      postGroup.value = response.postGroup
+    })
   }
+
+  getUser()
 </script>
 
 <style lang="scss">

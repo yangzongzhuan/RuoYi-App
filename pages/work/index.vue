@@ -74,35 +74,24 @@
   </view>
 </template>
 
-<script>
-  export default {
-    data() {
-      return {
-        current: 0,
-        swiperDotIndex: 0,
-        data: [{
-            image: '/static/images/banner/banner01.jpg'
-          },
-          {
-            image: '/static/images/banner/banner02.jpg'
-          },
-          {
-            image: '/static/images/banner/banner03.jpg'
-          }
-        ]
-      }
-    },
-    methods: {
-      clickBannerItem(item) {
-        console.info(item)
-      },
-      changeSwiper(e) {
-        this.current = e.detail.current
-      },
-      changeGrid(e) {
-        this.$modal.showToast('模块建设中~')
-      }
-    }
+<script setup>
+  import { ref, getCurrentInstance } from "vue"
+
+  const { proxy } = getCurrentInstance()
+  const current = ref(0)
+  const swiperDotIndex = ref(0)
+  const data = ref([{ image: '/static/images/banner/banner01.jpg' }, { image: '/static/images/banner/banner02.jpg' }, { image: '/static/images/banner/banner03.jpg' }])
+
+  function clickBannerItem(item) {
+    console.info(item)
+  }
+
+  function changeSwiper(e) {
+    current.value = e.detail.current
+  }
+
+  function changeGrid(e) {
+    proxy.$modal.showToast('模块建设中~')
   }
 </script>
 

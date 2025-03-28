@@ -38,86 +38,88 @@
   </view>
 </template>
 
-<script>
+<script setup>
   import { getCodeImg } from '@/api/login'
+  import store from '@/store'
+  import { ref, getCurrentInstance } from "vue"
 
-  export default {
-    data() {
-      return {
-        codeUrl: "",
-        captchaEnabled: true,
-        // 用户注册开关
-        register: false,
-        globalConfig: getApp().globalData.config,
-        loginForm: {
-          username: "admin",
-          password: "admin123",
-          code: "",
-          uuid: ""
+  const { proxy } = getCurrentInstance()
+  const globalConfig = getApp().globalData.config
+  const codeUrl = ref("")
+  // 验证码开关
+  const captchaEnabled = ref(true)
+  // 用户注册开关
+  const register = ref(false)
+  const loginForm = ref({
+    username: "admin",
+    password: "admin123",
+    code: "",
+    uuid: ""
+  })
+
+  // 用户注册
+  function handleUserRegister() {
+    proxy.$tab.redirectTo(`/pages/register`)
+  }
+
+  // 隐私协议
+  function handlePrivacy() {
+    let site = globalConfig.appInfo.agreements[0]
+    proxy.$tab.navigateTo(`/pages/common/webview/index?title=${site.title}&url=${site.url}`)
+  }
+
+  // 用户协议
+  function handleUserAgrement() {
+    let site = globalConfig.appInfo.agreements[1]
+    proxy.$tab.navigateTo(`/pages/common/webview/index?title=${site.title}&url=${site.url}`)
+  }
+
+  // 获取图形验证码
+  function getCode() {
+    getCodeImg().then(res => {
+      captchaEnabled.value = res.captchaEnabled === undefined ? true : res.captchaEnabled
+        if (captchaEnabled.value) {
+          codeUrl.value = 'data:image/gif;base64,' + res.img
+          loginForm.value.uuid = res.uuid
         }
-      }
-    },
-    created() {
-      this.getCode()
-    },
-    methods: {
-      // 用户注册
-      handleUserRegister() {
-        this.$tab.redirectTo(`/pages/register`)
-      },
-      // 隐私协议
-      handlePrivacy() {
-        let site = this.globalConfig.appInfo.agreements[0]
-        this.$tab.navigateTo(`/pages/common/webview/index?title=${site.title}&url=${site.url}`)
-      },
-      // 用户协议
-      handleUserAgrement() {
-        let site = this.globalConfig.appInfo.agreements[1]
-        this.$tab.navigateTo(`/pages/common/webview/index?title=${site.title}&url=${site.url}`)
-      },
-      // 获取图形验证码
-      getCode() {
-        getCodeImg().then(res => {
-          this.captchaEnabled = res.captchaEnabled === undefined ? true : res.captchaEnabled
-          if (this.captchaEnabled) {
-            this.codeUrl = 'data:image/gif;base64,' + res.img
-            this.loginForm.uuid = res.uuid
-          }
-        })
-      },
-      // 登录方法
-      async handleLogin() {
-        if (this.loginForm.username === "") {
-          this.$modal.msgError("请输入账号")
-        } else if (this.loginForm.password === "") {
-          this.$modal.msgError("请输入密码")
-        } else if (this.loginForm.code === "" && this.captchaEnabled) {
-          this.$modal.msgError("请输入验证码")
-        } else {
-          this.$modal.loading("登录中，请耐心等待...")
-          this.pwdLogin()
-        }
-      },
-      // 密码登录
-      async pwdLogin() {
-        this.$store.dispatch('Login', this.loginForm).then(() => {
-          this.$modal.closeLoading()
-          this.loginSuccess()
-        }).catch(() => {
-          if (this.captchaEnabled) {
-            this.getCode()
-          }
-        })
-      },
-      // 登录成功后，处理函数
-      loginSuccess(result) {
-        // 设置用户信息
-        this.$store.dispatch('GetInfo').then(res => {
-          this.$tab.reLaunch('/pages/index')
-        })
-      }
+    })
+  }
+
+  // 登录方法
+  async function handleLogin() {
+    if (loginForm.value.username === "") {
+      proxy.$modal.msgError("请输入账号")
+    } else if (loginForm.value.password === "") {
+      proxy.$modal.msgError("请输入密码")
+    } else if (loginForm.value.code === "" && captchaEnabled.value) {
+      proxy.$modal.msgError("请输入验证码")
+    } else {
+      proxy.$modal.loading("登录中，请耐心等待...")
+      pwdLogin()
     }
   }
+
+  // 密码登录
+  async function pwdLogin() {
+    store.dispatch('Login', loginForm.value).then(() => {
+      proxy.$modal.closeLoading()
+      loginSuccess()
+    }).catch(() => {
+      if (captchaEnabled.value) {
+        getCode()
+      }
+    })
+  }
+
+  // 登录成功后，处理函数
+  function loginSuccess(result) {
+    // 设置用户信息
+    store.dispatch('GetInfo').then(res => {
+      proxy.$tab.reLaunch('/pages/index')
+    })
+  }
+
+  getCode()
 </script>
 
 <style lang="scss" scoped>
@@ -198,5 +200,4 @@
       }
     }
   }
-
 </style>

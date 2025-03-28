@@ -29,12 +29,7 @@ const request = config => {
         header: config.header,
         dataType: 'json'
       }).then(response => {
-        let [error, res] = response
-        if (error) {
-          toast('后端接口连接异常')
-          reject('后端接口连接异常')
-          return
-        }
+        const res = response
         const code = res.data.code || 200
         const msg = errorCode[code] || res.data.msg || errorCode['default']
         if (code === 401) {

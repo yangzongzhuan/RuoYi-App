@@ -15,61 +15,55 @@
   </view>
 </template>
 
-<script>
+<script setup>
   import { updateUserPwd } from "@/api/system/user"
+  import { ref, reactive , getCurrentInstance } from "vue"
+  import { onReady } from  "@dcloudio/uni-app"
 
-  export default {
-    data() {
-      return {
-        user: {
-          oldPassword: undefined,
-          newPassword: undefined,
-          confirmPassword: undefined
-        },
-        rules: {
-          oldPassword: {
-            rules: [{
-              required: true,
-              errorMessage: '旧密码不能为空'
-            }]
-          },
-          newPassword: {
-            rules: [{
-                required: true,
-                errorMessage: '新密码不能为空',
-              },
-              {
-                minLength: 6,
-                maxLength: 20,
-                errorMessage: '长度在 6 到 20 个字符'
-              }
-            ]
-          },
-          confirmPassword: {
-            rules: [{
-                required: true,
-                errorMessage: '确认密码不能为空'
-              }, {
-                validateFunction: (rule, value, data) => data.newPassword === value,
-                errorMessage: '两次输入的密码不一致'
-              }
-            ]
-          }
-        }
-      }
+  const { proxy } = getCurrentInstance()
+  const user = reactive({
+    oldPassword: undefined,
+    newPassword: undefined,
+    confirmPassword: undefined
+  })
+  const rules = ref({
+    oldPassword: {
+      rules: [{
+        required: true,
+        errorMessage: '旧密码不能为空'
+      }]
     },
-    onReady() {
-      this.$refs.form.setRules(this.rules)
+    newPassword: {
+      rules: [{
+        required: true,
+        errorMessage: '新密码不能为空',
+      }, {
+        minLength: 6,
+        maxLength: 20,
+        errorMessage: '长度在 6 到 20 个字符'
+      }]
     },
-    methods: {
-      submit() {
-        this.$refs.form.validate().then(res => {
-          updateUserPwd(this.user.oldPassword, this.user.newPassword).then(response => {
-            this.$modal.msgSuccess("修改成功")
-          })
-        })
-      }
+    confirmPassword: {
+      rules: [{
+        required: true,
+        errorMessage: '确认密码不能为空'
+      }, {
+        validateFunction: (rule, value, data) => user.newPassword === value,
+        errorMessage: '两次输入的密码不一致'
+      }]
     }
+  })
+
+  onReady(() => {
+    proxy.$refs.form.setRules(rules.value)
+  })
+
+  function submit() {
+    proxy.$refs.form.validate().then(res => {
+      updateUserPwd(user.oldPassword, user.newPassword).then(response => {
+        proxy.$modal.msgSuccess("修改成功")
+      })
+    })
   }
 </script>
 

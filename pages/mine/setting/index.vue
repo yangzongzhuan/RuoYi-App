@@ -30,31 +30,31 @@
   </view>
 </template>
 
-<script>
-  export default {
-    data() {
-      return {
-        windowHeight: uni.getSystemInfoSync().windowHeight
-      }
-    },
-    methods: {
-      handleToPwd() {
-        this.$tab.navigateTo('/pages/mine/pwd/index')
-      },
-      handleToUpgrade() {
-        this.$modal.showToast('模块建设中~')
-      },
-      handleCleanTmp() {
-        this.$modal.showToast('模块建设中~')
-      },
-      handleLogout() {
-        this.$modal.confirm('确定注销并退出系统吗？').then(() => {
-          this.$store.dispatch('LogOut').then(() => {}).finally(()=>{
-            this.$tab.reLaunch('/pages/index')
-          })
-        })
-      }
-    }
+<script setup>
+  import store from '@/store'
+  import { ref, computed , getCurrentInstance } from "vue"
+
+  const { proxy } = getCurrentInstance()
+  const windowHeight = computed(() => uni.getSystemInfoSync().windowHeight - 50)
+
+  function handleToPwd() {
+    proxy.$tab.navigateTo('/pages/mine/pwd/index')
+  }
+
+  function handleToUpgrade() {
+    proxy.$modal.showToast('模块建设中~')
+  }
+
+  function handleCleanTmp() {
+    proxy.$modal.showToast('模块建设中~')
+  }
+
+  function handleLogout() {
+    proxy.$modal.confirm('确定注销并退出系统吗？').then(() => {
+      store.dispatch('LogOut').then(() => {}).finally(()=>{
+        proxy.$tab.reLaunch('/pages/index')
+      })
+    })
   }
 </script>
 

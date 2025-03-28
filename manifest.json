@@ -53,7 +53,7 @@
         },
         "usingComponents" : true
     },
-    "vueVersion" : "2",
+    "vueVersion" : "3",
     "h5" : {
         "template" : "static/index.html",
         "devServer" : {

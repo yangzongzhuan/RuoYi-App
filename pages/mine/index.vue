@@ -76,51 +76,50 @@
   </view>
 </template>
 
-<script>
-  export default {
-    data() {
-      return {
-        name: this.$store.state.user.name,
-        version: getApp().globalData.config.appInfo.version
-      }
-    },
-    computed: {
-      avatar() {
-        return this.$store.state.user.avatar
-      },
-      windowHeight() {
-        return uni.getSystemInfoSync().windowHeight - 50
-      }
-    },
-    methods: {
-      handleToInfo() {
-        this.$tab.navigateTo('/pages/mine/info/index')
-      },
-      handleToEditInfo() {
-        this.$tab.navigateTo('/pages/mine/info/edit')
-      },
-      handleToSetting() {
-        this.$tab.navigateTo('/pages/mine/setting/index')
-      },
-      handleToLogin() {
-        this.$tab.reLaunch('/pages/login')
-      },
-      handleToAvatar() {
-        this.$tab.navigateTo('/pages/mine/avatar/index')
-      },
-      handleHelp() {
-        this.$tab.navigateTo('/pages/mine/help/index')
-      },
-      handleAbout() {
-        this.$tab.navigateTo('/pages/mine/about/index')
-      },
-      handleJiaoLiuQun() {
-        this.$modal.showToast('QQ群：①133713780(满)、②146013835(满)、③189091635')
-      },
-      handleBuilding() {
-        this.$modal.showToast('模块建设中~')
-      }
-    }
+<script setup>
+  import store from '@/store'
+  import { computed , getCurrentInstance } from "vue"
+
+  const { proxy } = getCurrentInstance()
+  const name = store.state.user.name
+  const version= getApp().globalData.config.appInfo.version
+  const avatar = computed(() => store.state.user.avatar)
+  const windowHeight = computed(() => uni.getSystemInfoSync().windowHeight - 50)
+
+  function handleToInfo() {
+    proxy.$tab.navigateTo('/pages/mine/info/index')
+  }
+
+  function handleToEditInfo() {
+    proxy.$tab.navigateTo('/pages/mine/info/edit')
+  }
+
+  function handleToSetting() {
+    proxy.$tab.navigateTo('/pages/mine/setting/index')
+  }
+
+  function handleToLogin() {
+    proxy.$tab.reLaunch('/pages/login')
+  }
+
+  function handleToAvatar() {
+    proxy.$tab.navigateTo('/pages/mine/avatar/index')
+  }
+      
+  function handleHelp() {
+    proxy.$tab.navigateTo('/pages/mine/help/index')
+  }
+      
+  function handleAbout() {
+    proxy.$tab.navigateTo('/pages/mine/about/index')
+  }
+      
+  function handleJiaoLiuQun() {
+    proxy.$modal.showToast('QQ群：①133713780(满)、②146013835(满)、③189091635')
+  }
+      
+  function handleBuilding() {
+    proxy.$modal.showToast('模块建设中~')
   }
 </script>
 
