@@ -11,6 +11,7 @@ const baseUrl = config.baseUrl
 const user = {
   state: {
     token: getToken(),
+    id: storage.get(constant.id),
     name: storage.get(constant.name),
     avatar: storage.get(constant.avatar),
     roles: storage.get(constant.roles),
@@ -20,6 +21,10 @@ const user = {
   mutations: {
     SET_TOKEN: (state, token) => {
       state.token = token
+    },
+    SET_ID: (state, id) => {
+      state.id = id
+      storage.set(constant.id, id)
     },
     SET_NAME: (state, name) => {
       state.name = name
@@ -66,13 +71,15 @@ const user = {
 		  if (!isHttp(avatar)) {
             avatar = (isEmpty(avatar)) ? defAva : baseUrl + avatar
           }
-          const username = (isEmpty(user) || isEmpty(user.userName)) ? "" : user.userName
+          const userid = (isEmpty(user) || isEmpty(user.userId)) ? "" : user.userId
+		  const username = (isEmpty(user) || isEmpty(user.userName)) ? "" : user.userName
 		  if (res.roles && res.roles.length > 0) {
             commit('SET_ROLES', res.roles)
             commit('SET_PERMISSIONS', res.permissions)
           } else {
             commit('SET_ROLES', ['ROLE_DEFAULT'])
           }
+          commit('SET_ID', userid)
           commit('SET_NAME', username)
           commit('SET_AVATAR', avatar)
           resolve(res)
