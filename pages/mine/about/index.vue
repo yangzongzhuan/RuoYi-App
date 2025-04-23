@@ -44,8 +44,10 @@
 </template>
 
 <script setup>
-  const url = getApp().globalData.config.appInfo.site_url
-  const version = getApp().globalData.config.appInfo.version
+  import { useConfigStore } from '@/store'
+
+  const url = useConfigStore().config.appInfo.site_url
+  const version = useConfigStore().config.appInfo.version
 </script>
 
 <style lang="scss" scoped>

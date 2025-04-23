@@ -38,7 +38,7 @@
 
 <script>
   import config from '@/config'
-  import store from "@/store"
+  import { useUserStore } from '@/store'
   import { uploadAvatar } from "@/api/system/user"
   
   const baseUrl = config.baseUrl
@@ -68,7 +68,7 @@
 		 */
 		data() {
 			return {
-				imageSrc: store.getters.avatar,
+				imageSrc: useUserStore().avatar,
 				isShowImg: false,
 				// 初始化的宽高
 				cropperInitW: SCREEN_WIDTH,
@@ -257,7 +257,7 @@
 							uni.hideLoading()
 							let data = {name: 'avatarfile', filePath: res.tempFilePath}
 							uploadAvatar(data).then(response => {
-								store.commit('SET_AVATAR', baseUrl + response.imgUrl)
+								useUserStore().SET_AVATAR(baseUrl + response.imgUrl)
 								uni.showToast({ title: "修改成功", icon: 'success' })
 								uni.navigateBack()
 							})

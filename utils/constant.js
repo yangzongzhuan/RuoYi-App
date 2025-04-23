@@ -1,8 +1,8 @@
 const constant = {
-   avatar: 'vuex_avatar',
-   name: 'vuex_name',
-   roles: 'vuex_roles',
-   permissions: 'vuex_permissions'
+   avatar: 'user_avatar',
+   name: 'user_name',
+   roles: 'user_roles',
+   permissions: 'user_permissions'
  }
 
  export default constant

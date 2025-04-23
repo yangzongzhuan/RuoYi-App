@@ -77,13 +77,12 @@
 </template>
 
 <script setup>
-  import store from '@/store'
+  import { useUserStore } from '@/store'
   import { computed , getCurrentInstance } from "vue"
 
   const { proxy } = getCurrentInstance()
-  const name = store.state.user.name
-  const version= getApp().globalData.config.appInfo.version
-  const avatar = computed(() => store.state.user.avatar)
+  const name = useUserStore().name
+  const avatar = computed(() => useUserStore().avatar)
   const windowHeight = computed(() => uni.getSystemInfoSync().windowHeight - 50)
 
   function handleToInfo() {

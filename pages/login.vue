@@ -40,11 +40,11 @@
 
 <script setup>
   import { getCodeImg } from '@/api/login'
-  import store from '@/store'
+  import { useConfigStore, useUserStore } from '@/store'
   import { ref, getCurrentInstance } from "vue"
 
   const { proxy } = getCurrentInstance()
-  const globalConfig = getApp().globalData.config
+  const globalConfig = useConfigStore().config
   const codeUrl = ref("")
   // 验证码开关
   const captchaEnabled = ref(true)
@@ -101,7 +101,7 @@
 
   // 密码登录
   async function pwdLogin() {
-    store.dispatch('Login', loginForm.value).then(() => {
+    useUserStore().login(loginForm.value).then(() => {
       proxy.$modal.closeLoading()
       loginSuccess()
     }).catch(() => {
@@ -114,7 +114,7 @@
   // 登录成功后，处理函数
   function loginSuccess(result) {
     // 设置用户信息
-    store.dispatch('GetInfo').then(res => {
+    useUserStore().getInfo().then(res => {
       proxy.$tab.reLaunch('/pages/index')
     })
   }

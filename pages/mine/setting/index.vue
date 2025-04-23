@@ -31,7 +31,7 @@
 </template>
 
 <script setup>
-  import store from '@/store'
+  import { useUserStore } from '@/store'
   import { ref, computed , getCurrentInstance } from "vue"
 
   const { proxy } = getCurrentInstance()
@@ -51,7 +51,7 @@
 
   function handleLogout() {
     proxy.$modal.confirm('确定注销并退出系统吗？').then(() => {
-      store.dispatch('LogOut').then(() => {}).finally(()=>{
+      useUserStore().logOut().then(() => {}).finally(()=>{
         proxy.$tab.reLaunch('/pages/index')
       })
     })
