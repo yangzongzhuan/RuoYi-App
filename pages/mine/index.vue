@@ -80,8 +80,7 @@
   export default {
     data() {
       return {
-        name: this.$store.state.user.name,
-        version: getApp().globalData.config.appInfo.version
+        name: this.$store.state.user.name
       }
     },
     computed: {

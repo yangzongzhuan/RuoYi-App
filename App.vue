@@ -1,6 +1,5 @@
 <script>
   import config from './config'
-  import store from '@/store'
   import { getToken } from '@/utils/auth'
 
   export default {
