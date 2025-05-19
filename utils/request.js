@@ -1,4 +1,4 @@
-import store from '@/store'
+import { useUserStore } from '@/store'
 import config from '@/config'
 import { getToken } from '@/utils/auth'
 import errorCode from '@/utils/errorCode'
@@ -35,7 +35,7 @@ const request = config => {
         if (code === 401) {
           showConfirm('登录状态已过期，您可以继续留在该页面，或者重新登录?').then(res => {
             if (res.confirm) {
-              store.dispatch('LogOut').then(res => {
+              useUserStore().logOut().then(res => {
                 uni.reLaunch({ url: '/pages/login' })
               })
             }
