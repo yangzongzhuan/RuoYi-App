@@ -40,6 +40,7 @@
 
 <script>
   import { getCodeImg } from '@/api/login'
+  import { getToken } from '@/utils/auth'
 
   export default {
     data() {
@@ -59,6 +60,13 @@
     },
     created() {
       this.getCode()
+    },
+    onLoad() {
+      //#ifdef H5
+      if (getToken()) {
+        this.$tab.reLaunch('/pages/index')
+      }
+      //#endif
     },
     methods: {
       // 用户注册
