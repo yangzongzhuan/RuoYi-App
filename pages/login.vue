@@ -39,9 +39,11 @@
 </template>
 
 <script setup>
+  import { ref, getCurrentInstance } from "vue"
+  import { onLoad } from  "@dcloudio/uni-app"
+  import { getToken } from '@/utils/auth'
   import { getCodeImg } from '@/api/login'
   import { useConfigStore, useUserStore } from '@/store'
-  import { ref, getCurrentInstance } from "vue"
 
   const { proxy } = getCurrentInstance()
   const globalConfig = useConfigStore().config
@@ -118,6 +120,14 @@
       proxy.$tab.reLaunch('/pages/index')
     })
   }
+
+  onLoad(() => {
+    //#ifdef H5
+    if (getToken()) {
+      proxy.$tab.reLaunch('/pages/index')
+    }
+    //#endif
+  })
 
   getCode()
 </script>
