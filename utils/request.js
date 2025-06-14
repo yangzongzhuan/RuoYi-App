@@ -1,7 +1,7 @@
-import { useUserStore } from '@/store'
 import config from '@/config'
 import { getToken } from '@/utils/auth'
 import errorCode from '@/utils/errorCode'
+import { useUserStore } from '@/store/modules/user'
 import { toast, showConfirm, tansParams } from '@/utils/common'
 
 let timeout = 10000

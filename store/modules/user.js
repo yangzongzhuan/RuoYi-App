@@ -1,3 +1,5 @@
+import { defineStore } from 'pinia'
+import { ref } from 'vue'
 import config from '@/config'
 import storage from '@/utils/storage'
 import constant from '@/utils/constant'
@@ -5,8 +7,6 @@ import { isHttp, isEmpty } from "@/utils/validate"
 import { getInfo, login, logout } from '@/api/login'
 import { getToken, removeToken, setToken } from '@/utils/auth'
 import defAva from '@/static/images/profile.jpg'
-import { ref } from 'vue'
-import { defineStore } from 'pinia'
 
 const baseUrl = config.baseUrl
 
