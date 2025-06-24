@@ -38,9 +38,10 @@
 <script setup>
   import { getCodeImg, register } from '@/api/login'
   import { ref, getCurrentInstance } from "vue"
+  import { useConfigStore } from '@/store'
 
   const { proxy } = getCurrentInstance()
-  const globalConfig = getApp().globalData.config
+  const globalConfig = useConfigStore().config
   const codeUrl = ref("")
   // 验证码开关
   const captchaEnabled = ref(true)
