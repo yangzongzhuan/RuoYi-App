@@ -14,3 +14,7 @@
 package-lock.json
 yarn.lock
 
+######################################################################
+# Build Output
+/dist/*
+/build/*
