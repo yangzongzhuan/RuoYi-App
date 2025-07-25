@@ -12,61 +12,19 @@
     </uni-swiper-dot>
 
     <!-- 宫格组件 -->
-    <uni-section title="系统管理" type="line"></uni-section>
+    <uni-section title="数据采集系统" type="line"></uni-section>
     <view class="grid-body">
-      <uni-grid :column="4" :showBorder="false" @change="changeGrid">
+      <uni-grid :column="2" :showBorder="false">
         <uni-grid-item>
-          <view class="grid-item-box">
+          <view class="grid-item-box" @click = "query()">
             <uni-icons type="person-filled" size="30"></uni-icons>
-            <text class="text">用户管理</text>
+            <text class="text">数据查询</text>
           </view>
         </uni-grid-item>
         <uni-grid-item>
-          <view class="grid-item-box">
+          <view class="grid-item-box" @click = "dataInput()">
             <uni-icons type="staff-filled" size="30"></uni-icons>
-            <text class="text">角色管理</text>
-          </view>
-        </uni-grid-item>
-        <uni-grid-item>
-          <view class="grid-item-box">
-            <uni-icons type="color" size="30"></uni-icons>
-            <text class="text">菜单管理</text>
-          </view>
-        </uni-grid-item>
-        <uni-grid-item>
-          <view class="grid-item-box">
-            <uni-icons type="settings-filled" size="30"></uni-icons>
-            <text class="text">部门管理</text>
-          </view>
-        </uni-grid-item>
-        <uni-grid-item>
-          <view class="grid-item-box">
-            <uni-icons type="heart-filled" size="30"></uni-icons>
-            <text class="text">岗位管理</text>
-          </view>
-        </uni-grid-item>
-        <uni-grid-item>
-          <view class="grid-item-box">
-            <uni-icons type="bars" size="30"></uni-icons>
-            <text class="text">字典管理</text>
-          </view>
-        </uni-grid-item>
-        <uni-grid-item>
-          <view class="grid-item-box">
-            <uni-icons type="gear-filled" size="30"></uni-icons>
-            <text class="text">参数设置</text>
-          </view>
-        </uni-grid-item>
-        <uni-grid-item>
-          <view class="grid-item-box">
-            <uni-icons type="chat-filled" size="30"></uni-icons>
-            <text class="text">通知公告</text>
-          </view>
-        </uni-grid-item>
-        <uni-grid-item>
-          <view class="grid-item-box">
-            <uni-icons type="wallet-filled" size="30"></uni-icons>
-            <text class="text">日志管理</text>
+            <text class="text">数据录入</text>
           </view>
         </uni-grid-item>
       </uni-grid>
@@ -101,6 +59,16 @@
       },
       changeGrid(e) {
         this.$modal.showToast('模块建设中~')
+      },
+      query() {
+        uni.navigateTo({
+          url: '/pages/ct13/ct13/index'
+        })
+      },
+      dataInput() {
+        uni.navigateTo({
+          url: '/pages/ct13/ct13/view'
+        })
       }
     }
   }
