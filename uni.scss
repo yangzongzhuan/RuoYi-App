@@ -2,11 +2,14 @@
  * uni-app内置的常用样式变量
  */
 
-/* 行为相关颜色 */
-$uni-color-primary: #007aff;
-$uni-color-success: #4cd964;
-$uni-color-warning: #f0ad4e;
-$uni-color-error: #dd524d;
+/* 行为相关颜色 - Material You 风格 */
+$uni-color-primary: #64B5F6;
+$uni-color-primary-light: #93CFFF;
+$uni-color-primary-dark: #3195F0;
+$uni-color-success: #81C784;
+$uni-color-warning: #FFB74D;
+$uni-color-error: #E57373;
+$uni-color-info: #90A4AE;
 
 /* 文字基本颜色 */
 $uni-text-color:#333;//基本色
@@ -26,20 +29,27 @@ $uni-border-color:#e5e5e5;
 
 /* 尺寸变量 */
 
+/* 阴影变量 - Material You 风格 */
+$uni-shadow-sm: 0 1rpx 3rpx rgba(0, 0, 0, 0.06), 0 1rpx 2rpx rgba(0, 0, 0, 0.08);
+$uni-shadow-base: 0 3rpx 6rpx rgba(0, 0, 0, 0.08), 0 2rpx 4rpx rgba(0, 0, 0, 0.10);
+$uni-shadow-lg: 0 10rpx 20rpx rgba(0, 0, 0, 0.10), 0 3rpx 6rpx rgba(0, 0, 0, 0.08);
+
 /* 文字尺寸 */
 $uni-font-size-sm:12px;
-$uni-font-size-base:14px;
-$uni-font-size-lg:16px;
+$uni-font-size-base:15px;
+$uni-font-size-lg:17px;
+$uni-font-size-xl:20px;
 
 /* 图片尺寸 */
 $uni-img-size-sm:20px;
 $uni-img-size-base:26px;
 $uni-img-size-lg:40px;
 
-/* Border Radius */
-$uni-border-radius-sm: 2px;
-$uni-border-radius-base: 3px;
-$uni-border-radius-lg: 6px;
+/* Border Radius - Material You 风格 */
+$uni-border-radius-sm: 6px;
+$uni-border-radius-base: 12px;
+$uni-border-radius-lg: 18px;
+$uni-border-radius-xl: 24px;
 $uni-border-radius-circle: 50%;
 
 /* 水平间距 */
