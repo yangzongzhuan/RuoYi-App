@@ -62,7 +62,7 @@ const request = config => {
         } else if (message.includes('timeout')) {
           message = '系统接口请求超时'
         } else if (message.includes('Request failed with status code')) {
-          message = '系统接口' + message.substr(message.length - 3) + '异常'
+          message = '系统接口' + message.slice(-3) + '异常'
         }
         toast(message)
         reject(error)
