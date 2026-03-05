@@ -70,7 +70,23 @@
     "style": {
       "navigationBarTitleText": "浏览文本"
     }
-  }],
+  }
+  ,
+  {
+    "path": "pages/ct13/ct13/index",
+    "style": {
+      "navigationBarTitleText": "查询页面"
+    }
+  },
+    {
+    "path": "pages/ct13/ct13/view",
+    "style": {
+      "navigationBarTitleText": "编辑页面"
+    }
+  }
+
+
+],
   "tabBar": {
     "color": "#000000",
     "selectedColor": "#000000",

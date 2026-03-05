@@ -51,7 +51,12 @@
         "optimization" : {
             "subPackages" : true
         },
-        "usingComponents" : true
+        "usingComponents" : true,
+        "permissions" : {
+            "scope.userLocation" : {
+                "desc" : "你的位置信息将用于位置采集"
+            }
+        }
     },
     "vueVersion" : "2",
     "h5" : {
